@@ -51,5 +51,6 @@ export default [
 ];
 
 // TODOS:
-// Add "other" textfield on radio inputs
+// Add "other" textfield
+// Add validation function
 // Add helper text

@@ -1,2 +1,3 @@
 # react-easy-form
-Created with CodeSandbox
+
+![cover](./assets/sample.png)
