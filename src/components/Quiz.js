@@ -7,6 +7,7 @@ import Question from "./Question";
 
 const useStyles = makeStyles((theme) => ({
   form: {
+    marginTop: theme.spacing(3),
     "& > *": {
       marginBottom: theme.spacing(0.8)
     }

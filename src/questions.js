@@ -9,13 +9,6 @@ export default [
     validate: [required, minLength(10)]
   },
   {
-    name: "age",
-    label: "Edad del entrevistado",
-    type: "number",
-    required: true,
-    validate: [required]
-  },
-  {
     name: "language",
     label: "Lenguaje de programación principal",
     type: "radio",
