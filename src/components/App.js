@@ -8,7 +8,7 @@ function App() {
   return (
     <Container style={{ maxWidth: 600 }}>
       <Quiz
-        title="Identificación de factores para la reubicación"
+        title="Identificación de Mentores"
         subtitle="CASO 2020-10-JROS1"
         questions={questions}
         onSubmit={handleSubmit}

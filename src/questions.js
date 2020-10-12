@@ -16,26 +16,24 @@ export default [
     validate: [required]
   },
   {
-    name: "organization",
-    label: "Organización del entrevistador",
+    name: "language",
+    label: "Lenguaje de programación principal",
     type: "radio",
-    // required: true,
     options: [
-      { label: "ACNUR", value: "ACNUR" },
-      { label: "FM4", value: "FM4" },
-      { label: "PCR", value: "PCR" }
+      { label: "C++", value: "cpp" },
+      { label: "Python", value: "python" },
+      { label: "Java", value: "java" },
+      { label: "Common Lisp", value: "clisp" }
     ]
-    // validate: [required]
   },
   {
     name: "city",
     label: "Ciudad de origen",
     type: "select",
     options: [
-      { label: "Tenosique", value: "TENO" },
-      { label: "Monterrey", value: "MONT" },
-      { label: "Guadalajara", value: "GDJR" },
-      { label: "Oaxaca", value: "OAXA" }
+      { label: "Monterrey", value: "MTY" },
+      { label: "Guadalajara", value: "GDL" },
+      { label: "Tokyo", value: "NRT" }
     ]
   },
   {
@@ -43,16 +41,15 @@ export default [
     label: "Notas",
     type: "text",
     multiline: true,
-    rows: 3
+    rows: 2
   },
   {
     name: "special",
-    label: "Requiere atención especial",
+    label: "Experiencia como mentor",
     type: "checkbox"
   }
 ];
 
 // TODOS:
-// Add "other" textfield
-// Add validation function
+// Add "other" textfield on radio inputs
 // Add helper text
