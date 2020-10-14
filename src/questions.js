@@ -9,6 +9,13 @@ export default [
     validate: [required, minLength(10)]
   },
   {
+    name: "secret",
+    label: "Clave del proceso",
+    type: "password",
+    required: true,
+    validate: [required]
+  },
+  {
     name: "language",
     label: "Lenguaje de programación principal",
     type: "radio",

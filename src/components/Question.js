@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { TextField, FormControlLabel, InputLabel } from "@material-ui/core";
 import { Checkbox, FormControl, Select, MenuItem } from "@material-ui/core";
 import { Radio, RadioGroup, FormLabel } from "@material-ui/core";
+import { InputAdornment, IconButton } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Field } from "redux-form";
 
 function Question(props) {
@@ -20,6 +23,8 @@ function selectInput(type) {
     case "text":
     case "number":
       return FormTextField;
+    case "password":
+      return FormPassword;
     case "select":
       return FormSelect;
     case "radio":
@@ -39,6 +44,31 @@ function FormTextField({ label, input, meta, ...custom }) {
       fullWidth
       {...input}
       {...custom}
+    />
+  );
+}
+
+function FormPassword(props) {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  return (
+    <FormTextField
+      {...props}
+      type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        )
+      }}
     />
   );
 }
