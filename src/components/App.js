@@ -9,7 +9,7 @@ function App() {
     <Container style={{ maxWidth: 600 }}>
       <Quiz
         title="Identificación de Mentores"
-        subtitle="CASO 2020-10-JROS1"
+        subtitle="Nombre: Jonathan Rodriguez"
         questions={questions}
         onSubmit={handleSubmit}
       />
