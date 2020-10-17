@@ -33,8 +33,12 @@ export default [
     options: [
       { label: "Monterrey", value: "MTY" },
       { label: "Guadalajara", value: "GDL" },
-      { label: "Tokyo", value: "NRT" }
-    ]
+      { label: "Tokyo", value: "NRT" },
+      { label: "Otra", value: "other" }
+    ],
+    required: true,
+    other: true,
+    validate: [required]
   },
   {
     name: "notes",
@@ -51,6 +55,7 @@ export default [
 ];
 
 // TODOS:
-// Add "other" textfield
 // Add validation function
 // Add helper text
+// Add form grid
+// Add field array

@@ -7,6 +7,7 @@ import { InputAdornment, IconButton } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Field } from "redux-form";
+import { required } from "../validate";
 
 function Question(props) {
   return (
@@ -17,21 +18,14 @@ function Question(props) {
 }
 
 function selectInput(type) {
-  switch (type) {
-    case "checkbox":
-      return FormCheckbox;
-    case "text":
-    case "number":
-      return FormTextField;
-    case "password":
-      return FormPassword;
-    case "select":
-      return FormSelect;
-    case "radio":
-      return FormRadio;
-    default:
-      return null;
-  }
+  const inputs = {
+    checkbox: FormCheckbox,
+    text: FormTextField,
+    password: FormPassword,
+    select: FormSelect,
+    radio: FormRadio
+  };
+  return inputs[type] || FormTextField;
 }
 
 function FormTextField({ label, input, meta, ...custom }) {
@@ -55,7 +49,7 @@ function FormPassword(props) {
   return (
     <FormTextField
       {...props}
-      type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+      type={showPassword ? "text" : "password"}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -87,8 +81,12 @@ function FormCheckbox({ input, label }) {
   );
 }
 
-function FormSelect({ label, input, meta, children, options, ...custom }) {
+function FormSelect(props) {
+  console.log(props);
+  const { label, input, meta, options, ...custom } = props;
   const { touched, error } = meta;
+  const useTextField = input.value === "other" && custom.other;
+
   return (
     <FormControl error={touched && error} style={{ minWidth: "100%" }}>
       <InputLabel>{label}</InputLabel>
@@ -99,6 +97,15 @@ function FormSelect({ label, input, meta, children, options, ...custom }) {
           </MenuItem>
         ))}
       </Select>
+      {useTextField && (
+        <Field
+          label={label}
+          name={`${input.name}-other`}
+          style={{ marginTop: 12 }}
+          component={FormTextField}
+          validate={[required]}
+        />
+      )}
     </FormControl>
   );
 }
@@ -122,13 +129,20 @@ function FormRadio({ input, label, options, ...custom }) {
 }
 
 Question.propTypes = {
-  text: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["text", "radio"]),
+  label: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["text", "checkbox", "password", "select", "radio"]),
   required: PropTypes.bool,
-  validate: PropTypes.func,
-  options: PropTypes.shape({
-    text: PropTypes.string
-  })
+  validate: PropTypes.arrayOf(PropTypes.func),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.boolean
+      ])
+    })
+  )
 };
 
 Question.defaultProps = {

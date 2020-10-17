@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginTop: theme.spacing(3),
     "& > *": {
-      marginBottom: theme.spacing(0.8)
+      marginBottom: theme.spacing(1)
     }
   }
 }));
@@ -31,13 +31,16 @@ function Quiz({ title, subtitle, questions, ...props }) {
 }
 
 function QuizButtons({ handleSubmit, pristine, submitting, invalid, reset }) {
-  const disabled = pristine || submitting;
   return (
     <div>
       <Button disabled={invalid} onClick={handleSubmit} color="primary">
         Enviar
       </Button>
-      <Button disabled={disabled} onClick={reset} color="secondary">
+      <Button
+        onClick={reset}
+        color="secondary"
+        disabled={pristine || submitting}
+      >
         Reiniciar valores
       </Button>
     </div>
