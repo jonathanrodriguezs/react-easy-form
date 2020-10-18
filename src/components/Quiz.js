@@ -33,7 +33,13 @@ function Quiz({ title, subtitle, questions, ...props }) {
 function QuizButtons({ handleSubmit, pristine, submitting, invalid, reset }) {
   return (
     <div>
-      <Button disabled={invalid} onClick={handleSubmit} color="primary">
+      <Button
+        id="submit"
+        type="submit"
+        disabled={invalid}
+        onClick={handleSubmit}
+        color="primary"
+      >
         Submit
       </Button>
       <Button onClick={reset} disabled={pristine || submitting}>
