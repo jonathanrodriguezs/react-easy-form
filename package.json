@@ -34,7 +34,7 @@
     "cypress:open": "cypress open",
     "test:chrome": "cypress run --browser chrome",
     "report:merge": "mochawesome-merge cypress/results/json/*.json > index.json",
-    "report:generate": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
+    "report:generate": "marge index.json --reportDir cypress-report --assetsDir cypress-report/assets --reportPageTitle index.html"
   },
   "browserslist": [
     ">0.2%",

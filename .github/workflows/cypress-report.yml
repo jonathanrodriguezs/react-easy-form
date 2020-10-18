@@ -31,8 +31,8 @@ jobs:
 
       - name: Copy test execution videos
         run: |
-          mkdir gh-pages
-          cp -r cypress/videos gh-pages/videos
+          mkdir cypress-report
+          cp -r cypress/videos cypress-report/videos
 
       - name: Merge test results into one
         run: yarn report:merge
@@ -44,6 +44,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages
+          publish_dir: ./cypress-report
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
