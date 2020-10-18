@@ -1,70 +1,77 @@
-import { required, minLength } from "./validate";
+import { required, minLength, maxLength } from "./validate";
 
 export default [
   {
     name: "name",
-    label: "Nombre del entrevistador",
+    label: "Interviewer name",
     type: "text",
     required: true,
-    validate: [required, minLength(10)]
+    validate: [required(), minLength(10)]
   },
   {
     name: "secret",
-    label: "Clave del proceso",
+    label: "Secret key",
     type: "password",
     required: true,
-    validate: [required]
+    validate: [required()]
   },
   {
-    name: "city",
-    label: "Ciudad de origen",
+    name: "hometown",
+    label: "Hometown",
     type: "select",
     options: [
       { label: "Monterrey", value: "MTY" },
-      { label: "Guadalajara", value: "GDL" },
-      { label: "Ciudad de México", value: "CDMX" },
-      { label: "Otra", value: "other" }
+      { label: "Mexico City", value: "CDMX" },
+      { label: "Washington D.C.", value: "US-WA" },
+      { label: "Other", value: "other" }
     ],
     required: true,
-    other: true,
-    validate: [required]
+    enableOther: true,
+    validate: [required()]
   },
   {
     name: "language",
-    label: "Lenguaje de programación principal",
+    label: "Main programming language",
     type: "radio",
     options: [
-      { label: "Golang", value: "go" },
-      { label: "Python", value: "python" },
-      { label: "Rust", value: "rust" },
-      { label: "C++", value: "cpp" },
-      { label: "Clojure", value: "clojure" },
-      { label: "Assembly x86", value: "asm" }
+      { label: "Golang", value: "GO" },
+      { label: "Python", value: "PYTHON" },
+      { label: "Rust", value: "RUST" },
+      { label: "C++", value: "CPP" },
+      { label: "Clojure", value: "CLOJURE" },
+      { label: "Assembly x86", value: "ASM" }
     ]
   },
   {
     name: "notes",
-    label: "Notas",
+    label: "Notes",
     type: "text",
     multiline: true,
     rows: 2
   },
   {
     name: "experience",
-    label: "Experiencia como mentor",
+    label: "Has experience as a mentor",
     type: "checkbox"
   },
   {
     name: "persons",
-    label: "Personas",
+    label: "Work reference",
     type: "array",
+    validate: [required()],
     subform: [
       {
         name: "name",
-        label: "Nombre del entrevistador",
+        label: "Full name",
         type: "text",
         required: true,
-        validate: [required, minLength(10)]
+        validate: [required()]
+      },
+      {
+        name: "phone",
+        label: "Phone number",
+        type: "text",
+        validate: [maxLength(13)]
       }
     ]
   }
@@ -73,4 +80,3 @@ export default [
 // TODOS:
 // Add helper text
 // Add form grid
-// Add field array

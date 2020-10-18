@@ -4,10 +4,29 @@ import { Field, FieldArray } from "redux-form";
 import { TextField, FormControlLabel, InputLabel } from "@material-ui/core";
 import { Checkbox, FormControl, Select, MenuItem } from "@material-ui/core";
 import { Radio, RadioGroup, FormLabel } from "@material-ui/core";
-import { InputAdornment, IconButton, Grid } from "@material-ui/core";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { InputAdornment, IconButton, Grid, Button } from "@material-ui/core";
+import { Visibility, VisibilityOff, Add, Clear } from "@material-ui/icons";
 import { required } from "../validate";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  alignRigth: {
+    float: "right"
+  },
+  select: {
+    minWidth: "100%"
+  },
+  marginTop: {
+    marginTop: theme.spacing(1)
+  },
+  subform: {
+    paddingLeft: 20,
+    borderLeft: "1px solid #2d2d2d",
+    "& > div  .MuiInputBase-root": {
+      marginBottom: theme.spacing(1)
+    }
+  }
+}));
 
 function Question(props) {
   const type = selectInput(props.type);
@@ -32,7 +51,17 @@ function selectInput(type) {
 
 function FormTextField({ label, input, meta, ...custom }) {
   const { touched, invalid, error } = meta;
-  return <TextField label={label} error={touched && invalid} helperText={touched && error} InputLabelProps={{ shrink: true }} fullWidth {...input} {...custom} />;
+  return (
+    <TextField
+      label={label}
+      error={touched && invalid}
+      helperText={touched && error}
+      InputLabelProps={{ shrink: true }}
+      fullWidth
+      {...input}
+      {...custom}
+    />
+  );
 }
 
 function FormPassword(props) {
@@ -46,7 +75,11 @@ function FormPassword(props) {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
               {showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
@@ -57,16 +90,24 @@ function FormPassword(props) {
 }
 
 function FormCheckbox({ input, label }) {
-  return <FormControlLabel label={label} control={<Checkbox checked={input.value ? true : false} onChange={input.onChange} />} />;
+  return (
+    <FormControlLabel
+      label={label}
+      control={
+        <Checkbox checked={input.value ? true : false} onChange={input.onChange} />
+      }
+    />
+  );
 }
 
 function FormSelect(props) {
-  const { label, input, meta, options, ...custom } = props;
+  const { label, input, meta, options, enableOther, ...custom } = props;
+  const useTextField = input.value === "other" && enableOther;
   const { touched, error } = meta;
-  const useTextField = input.value === "other" && custom.other;
+  const classes = useStyles();
 
   return (
-    <FormControl error={touched && error} style={{ minWidth: "100%" }}>
+    <FormControl error={touched && error} className={classes.select}>
       <InputLabel shrink>{label}</InputLabel>
       <Select {...input} {...custom} inputProps={{ name: input.name }}>
         {options.map((option) => (
@@ -75,20 +116,35 @@ function FormSelect(props) {
           </MenuItem>
         ))}
       </Select>
-      {useTextField && <Field required label={label} name={`${input.name}-other`} style={{ marginTop: 10 }} component={FormTextField} validate={[required]} />}
+      {useTextField && (
+        <Field
+          required
+          label={label}
+          name={`${input.name}-other`}
+          className={classes.marginTop}
+          component={FormTextField}
+          validate={[required()]}
+        />
+      )}
     </FormControl>
   );
 }
 
 function FormRadio({ input, label, options, ...custom }) {
+  const classes = useStyles();
   return (
-    <FormControl fullWidth style={{ marginTop: 10 }}>
+    <FormControl fullWidth className={classes.marginTop}>
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup {...input} {...custom}>
         <Grid container>
-          {options.map((option) => (
-            <Grid item xs={4}>
-              <FormControlLabel key={option.label} value={option.value} control={<Radio />} label={option.label} />
+          {options.map((option, index) => (
+            <Grid key={`${option.value}-${index}`} item xs={4}>
+              <FormControlLabel
+                key={option.label}
+                value={option.value}
+                control={<Radio />}
+                label={option.label}
+              />
             </Grid>
           ))}
         </Grid>
@@ -97,50 +153,49 @@ function FormRadio({ input, label, options, ...custom }) {
   );
 }
 
-function FormArray({ input, label, subform, ...custom }) {
-  console.log("HOLA");
+function ArrayFields({ fields, label, subform }) {
+  const classes = useStyles();
+  return (
+    <div>
+      <Button
+        fullWidth
+        type="button"
+        variant="outlined"
+        startIcon={<Add />}
+        onClick={() => fields.push({})}
+      >
+        {label}
+      </Button>
+
+      <div className={classes.subform}>
+        {fields.map((field, index) => {
+          return (
+            <div key={field}>
+              <Button
+                type="button"
+                color="secondary"
+                onClick={() => fields.remove(index)}
+                endIcon={<Clear />}
+                className={classes.alignRigth}
+              >
+                {label} #{index + 1}
+              </Button>
+              {subform.map((formInput) => {
+                const name = `${field}.${formInput.name}`;
+                return <Question key={name} {...formInput} name={name} />;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FormArray({ input, ...custom }) {
   return (
     <FormControl fullWidth>
-      <FormLabel component="legend">{label}</FormLabel>
-      <FieldArray
-        {...input}
-        {...custom}
-        component={({ fields, meta: { error } }) => (
-          <div>
-            <button type="button" onClick={() => fields.push({})}>
-              Add Member
-            </button>
-            {/* {error && <span>{error.name}</span>} */}
-            {fields.map((field, index) => (
-              <div>
-                <button type="button" onClick={() => fields.remove(index)}>
-                  Remove
-                </button>
-                {subform.map((formInput) => {
-                  return <Question {...formInput} name={`${input.name}.${formInput.name}`} />;
-                })}
-                {/* <h4>Member #{index + 1}</h4> */}
-                {/* <Field
-                    name={`${member}.firstName`}
-                    type="text"
-                    component={renderField}
-                    label="First Name"
-                  />
-                  <Field
-                    name={`${member}.lastName`}
-                    type="text"
-                    component={renderField}
-                    label="Last Name"
-                  />
-                  <FieldArray
-                    name={`${member}.hobbies`}
-                    component={renderHobbies}
-                  /> */}
-              </div>
-            ))}
-          </div>
-        )}
-      />
+      <FieldArray {...input} {...custom} component={ArrayFields} />
     </FormControl>
   );
 }

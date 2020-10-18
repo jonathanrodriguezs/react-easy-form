@@ -7,7 +7,7 @@ import Question from "./Question";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(5),
     "& > *": {
       marginBottom: theme.spacing(1)
     }
@@ -21,8 +21,8 @@ function Quiz({ title, subtitle, questions, ...props }) {
       <Typography variant="h6">{title}</Typography>
       <Typography variant="subtitle2">{subtitle}</Typography>
       <form className={classes.form}>
-        {questions.map((item) => (
-          <Question key={item.text} {...item} />
+        {questions.map((item, index) => (
+          <Question key={`${item.text}-${index}`} {...item} />
         ))}
         <QuizButtons {...props} />
       </form>
@@ -34,14 +34,10 @@ function QuizButtons({ handleSubmit, pristine, submitting, invalid, reset }) {
   return (
     <div>
       <Button disabled={invalid} onClick={handleSubmit} color="primary">
-        Enviar
+        Submit
       </Button>
-      <Button
-        onClick={reset}
-        color="secondary"
-        disabled={pristine || submitting}
-      >
-        Reiniciar valores
+      <Button onClick={reset} disabled={pristine || submitting}>
+        Reset
       </Button>
     </div>
   );
