@@ -24,6 +24,7 @@
     "mocha": "^8.2.0",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.1.0",
+    "start-server-and-test": "^1.11.5",
     "typescript": "3.8.3"
   },
   "scripts": {
@@ -33,6 +34,8 @@
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "test:chrome": "cypress run --browser chrome",
+    "start-server": "npm start",
+    "test:cypress": "start-server-and-test start-server http://localhost:3000 test:chrome",
     "report:merge": "mochawesome-merge cypress/results/json/*.json > index.json",
     "report:generate": "marge index.json --reportDir cypress-report --assetsDir cypress-report/assets --reportPageTitle index.html"
   },

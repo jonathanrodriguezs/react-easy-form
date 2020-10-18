@@ -22,11 +22,8 @@ jobs:
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-      - name: "Run the project"
-        run: yarn start &
-
       - name: Run Cypress tests
-        run: yarn test:chrome
+        run: yarn test:cypress
         continue-on-error: true
 
       - name: Copy test execution videos
