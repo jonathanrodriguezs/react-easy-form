@@ -8,8 +8,8 @@ function App() {
   return (
     <Container style={{ maxWidth: 600 }}>
       <Quiz
-        title="Identificación de Mentores"
-        subtitle="Nombre: Jonathan Rodriguez"
+        title="Developer recruitment form"
+        subtitle="Interviewee: Jonathan Rodriguez"
         questions={questions}
         onSubmit={handleSubmit}
       />
