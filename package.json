@@ -1,5 +1,5 @@
 {
-  "name": "quiz",
+  "name": "react-easy-form",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -9,6 +9,7 @@
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
     "@material-ui/styles": "4.10.0",
+    "mochawesome": "^6.1.1",
     "ramda": "0.27.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -19,6 +20,8 @@
   },
   "devDependencies": {
     "cypress": "^5.4.0",
+    "cypress-multi-reporters": "^1.4.0",
+    "mocha": "^8.2.0",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.1.0",
     "typescript": "3.8.3"

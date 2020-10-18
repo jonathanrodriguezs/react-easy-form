@@ -1,3 +1,7 @@
 {
-  "projectId": "fk27jw"
+  "projectId": "fk27jw",
+  "reporter": "cypress-multi-reporters",
+  "reporterOptions": {
+    "configFile": "reporter-config.json"
+  }
 }
