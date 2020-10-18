@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2020-10-18T18:51:15.638Z",
+    "end": "2020-10-18T18:51:28.679Z",
+    "duration": 13041,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "6513ebe9-4374-4a58-a4c2-4816fef3ad27",
+      "title": "",
+      "fullFile": "cypress\\integration\\example_form_spec.ts",
+      "file": "cypress\\integration\\example_form_spec.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5819fa8a-135c-40a7-b9b7-f5985a8fdfa3",
+          "title": "Basic Form test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Should submit successfully the form",
+              "fullTitle": "Basic Form test Should submit successfully the form",
+              "timedOut": null,
+              "duration": 7883,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": "\"videos/example_form_spec.ts.mp4\"",
+              "code": "cy.get(\"@name-text\").type(\"Randal Gregory\");\ncy.get(\"@secret-text\").type(\"CSDH439\");\ncy.get(\"@hometown-select\").click();\ncy.get('#menu-hometown li[data-value=\"other\"]').click();\ncy.get('input[name=\"hometown-other\"]').type(\"Tokyo\");\ncy.get(\"@language-radio\").check();\ncy.get(\"@notes-textarea\").type(\"Excellent developer\");\ncy.get(\"@submit-button\").click();\ncy.on(\"window:alert\", function (txt) {\n    expect(txt).to.contains(\"Randal Gregory\");\n});",
+              "err": {},
+              "uuid": "366c1a90-4b89-48ef-bc20-bde5fdaaa90c",
+              "parentUUID": "5819fa8a-135c-40a7-b9b7-f5985a8fdfa3",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "366c1a90-4b89-48ef-bc20-bde5fdaaa90c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7883,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.1.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/json",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.1.0"
+    }
+  }
+}
